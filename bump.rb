@@ -181,6 +181,8 @@ class Bumper
 
         cp("#{bw}/#{theme}/_variables.scss", "#{root}/assets/stylesheets/#{theme}/_variables.scss")
 
+        sed("#{root}/assets/stylesheets/#{theme}/_variables.scss", /^\$icon-font-path:\s*"(.*)";$/, '$icon-font-path:          "bootstrap/";')
+
         # If Rails moves to SASS 3.3+, we can simple do this
         # cp("#{bw}/#{theme}/_bootswatch.scss", "#{root}/assets/stylesheets/#{theme}/_bootswatch.scss")
 
