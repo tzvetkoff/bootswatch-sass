@@ -4,10 +4,16 @@ A SASS/Sprockets version of the [Bootswatch themes](http://bootswatch.com/).
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's `Gemfile`:
 
 ``` ruby
 gem 'bootswatch-sass', '~> 3.3.0'
+```
+
+The current version requires `Rails 4.2.0`. If you're using an older version of Rails, you should pin `bootswatch-sass` to version `3.3.1.3` in your `Gemfile`:
+
+``` ruby
+gem 'bootswatch-sass', '3.3.1.3'
 ```
 
 And then execute:
@@ -32,7 +38,7 @@ In your `application.js` add:
 //= require bootstrap
 ```
 
-In your `application.css` add:
+In your `application.css.scss` add:
 
 ``` css
 @import "bootstrap-cyborg";

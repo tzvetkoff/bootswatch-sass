@@ -1,115 +1,142 @@
+// Simplex 3.3.1
+// Bootswatch
+// -----------------------------------------------------
+
 @import url("//fonts.googleapis.com/css?family=Open+Sans:400,700");
-.navbar-inverse .badge {
-  background-color: #fff;
-  color: #d9230f;
+
+@mixin btn-shadow($color){
+  @include gradient-vertical-three-colors(lighten($color, 3%), $color, 6%, darken($color, 3%));
+  filter: none;
+  border: 1px solid darken($color, 10%);
 }
+
+// Navbar =====================================================================
+
+.navbar {
+
+  &-inverse {
+
+    .badge {
+      background-color: #fff;
+      color: $brand-primary;
+    }
+  }
+}
+
+// Buttons ====================================================================
+
 .btn {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: $headings-font-family;
 }
+
 .btn-default,
 .btn-default:hover {
-  background-image: -webkit-linear-gradient(#4f5151, #474949 6%, #3f4141);
-  background-image: -o-linear-gradient(#4f5151, #474949 6%, #3f4141);
-  background-image: linear-gradient(#4f5151, #474949 6%, #3f4141);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4f5151', endColorstr='#ff3f4141', GradientType=0);
-  filter: none;
-  border: 1px solid #2e2f2f;
+  @include btn-shadow($btn-default-bg);
 }
+
 .btn-primary,
 .btn-primary:hover {
-  background-image: -webkit-linear-gradient(#e72510, #d9230f 6%, #cb210e);
-  background-image: -o-linear-gradient(#e72510, #d9230f 6%, #cb210e);
-  background-image: linear-gradient(#e72510, #d9230f 6%, #cb210e);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe72510', endColorstr='#ffcb210e', GradientType=0);
-  filter: none;
-  border: 1px solid #a91b0c;
+  @include btn-shadow($btn-primary-bg);
 }
+
 .btn-success,
 .btn-success:hover {
-  background-image: -webkit-linear-gradient(#4da309, #469408 6%, #3f8507);
-  background-image: -o-linear-gradient(#4da309, #469408 6%, #3f8507);
-  background-image: linear-gradient(#4da309, #469408 6%, #3f8507);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4da309', endColorstr='#ff3f8507', GradientType=0);
-  filter: none;
-  border: 1px solid #2f6405;
+  @include btn-shadow($btn-success-bg);
 }
+
 .btn-info,
 .btn-info:hover {
-  background-image: -webkit-linear-gradient(#02a5de, #029acf 6%, #028fc0);
-  background-image: -o-linear-gradient(#02a5de, #029acf 6%, #028fc0);
-  background-image: linear-gradient(#02a5de, #029acf 6%, #028fc0);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff02a5de', endColorstr='#ff028fc0', GradientType=0);
-  filter: none;
-  border: 1px solid #02749c;
+  @include btn-shadow($btn-info-bg);
 }
+
 .btn-warning,
 .btn-warning:hover {
-  background-image: -webkit-linear-gradient(#a54caa, #9b479f 6%, #914294);
-  background-image: -o-linear-gradient(#a54caa, #9b479f 6%, #914294);
-  background-image: linear-gradient(#a54caa, #9b479f 6%, #914294);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa54caa', endColorstr='#ff914294', GradientType=0);
-  filter: none;
-  border: 1px solid #79377c;
+  @include btn-shadow($btn-warning-bg);
 }
+
 .btn-danger,
 .btn-danger:hover {
-  background-image: -webkit-linear-gradient(#e08b27, #d9831f 6%, #cc7b1d);
-  background-image: -o-linear-gradient(#e08b27, #d9831f 6%, #cc7b1d);
-  background-image: linear-gradient(#e08b27, #d9831f 6%, #cc7b1d);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe08b27', endColorstr='#ffcc7b1d', GradientType=0);
-  filter: none;
-  border: 1px solid #ac6819;
+  @include btn-shadow($btn-danger-bg);
 }
+
+// Typography =================================================================
+
 body {
   font-weight: 200;
 }
+
+// Tables =====================================================================
+
 th {
-  color: #444444;
+  color: $headings-color;
 }
+
+// Forms ======================================================================
+
 legend {
-  color: #444444;
+  color: $headings-color;
 }
+
 label {
   font-weight: normal;
 }
-.has-warning .help-block,
-.has-warning .control-label {
-  color: #d9831f;
+
+.has-warning {
+  .help-block,
+  .control-label {
+    color: $brand-danger;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-danger;
+  }
 }
-.has-warning .form-control,
-.has-warning .form-control:focus {
-  border-color: #d9831f;
+
+.has-error {
+  .help-block,
+  .control-label {
+    color: $brand-primary;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-primary;
+  }
 }
-.has-error .help-block,
-.has-error .control-label {
-  color: #d9230f;
+
+.has-success {
+  .help-block,
+  .control-label {
+    color: $brand-success;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-success;
+  }
 }
-.has-error .form-control,
-.has-error .form-control:focus {
-  border-color: #d9230f;
+
+// Navs =======================================================================
+
+.pager {
+  a {
+    color: $headings-color;
+  }
+
+  a:hover,
+  .active > a, {
+    border-color: $brand-primary;
+    color: #fff;
+  }
+
+  .disabled > a {
+    border-color: $pager-border;
+  }
 }
-.has-success .help-block,
-.has-success .control-label {
-  color: #469408;
-}
-.has-success .form-control,
-.has-success .form-control:focus {
-  border-color: #469408;
-}
-.pager a {
-  color: #444444;
-}
-.pager a:hover,
-.pager .active > a {
-  border-color: #d9230f;
-  color: #fff;
-}
-.pager .disabled > a {
-  border-color: #dddddd;
-}
+
+// Indicators =================================================================
+
+// Progress bars ==============================================================
+
+// Containers =================================================================

@@ -1,68 +1,120 @@
+// Journal 3.3.1
+// Bootswatch
+// -----------------------------------------------------
+
 @import url("//fonts.googleapis.com/css?family=News+Cycle:400,700");
+
+// Navbar =====================================================================
+
 .navbar {
   font-size: 18px;
-  font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
-  font-weight: 700;
+  font-family: $font-family-sans-serif;
+  font-weight: $headings-font-weight;
+
+  &-default {
+
+    .badge {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+
+  &-inverse {
+
+    .badge {
+      background-color: #fff;
+      color: $navbar-inverse-bg;
+    }
+  }
 }
-.navbar-default .badge {
-  background-color: #000;
-  color: #fff;
-}
-.navbar-inverse .badge {
-  background-color: #fff;
-  color: #eb6864;
-}
+
 .navbar-brand {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: $headings-font-weight;
   text-transform: uppercase;
 }
-.has-warning .help-block,
-.has-warning .control-label,
-.has-warning .form-control-feedback {
-  color: #f57a00;
+
+// Buttons ====================================================================
+
+// Typography =================================================================
+
+// Tables =====================================================================
+
+// Forms ======================================================================
+
+.has-warning {
+  .help-block,
+  .control-label,
+  .form-control-feedback {
+    color: $brand-danger;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-danger;
+  }
 }
-.has-warning .form-control,
-.has-warning .form-control:focus {
-  border-color: #f57a00;
+
+.has-error {
+  .help-block,
+  .control-label,
+  .form-control-feedback {
+    color: $brand-primary;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-primary;
+  }
 }
-.has-error .help-block,
-.has-error .control-label,
-.has-error .form-control-feedback {
-  color: #eb6864;
+
+.has-success {
+  .help-block,
+  .control-label,
+  .form-control-feedback {
+    color: $brand-success;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-success;
+  }
 }
-.has-error .form-control,
-.has-error .form-control:focus {
-  border-color: #eb6864;
-}
-.has-success .help-block,
-.has-success .control-label,
-.has-success .form-control-feedback {
-  color: #22b24c;
-}
-.has-success .form-control,
-.has-success .form-control:focus {
-  border-color: #22b24c;
-}
+
+// Navs =======================================================================
+
+// Indicators =================================================================
+
 .badge {
   padding-bottom: 4px;
   vertical-align: 3px;
   font-size: 10px;
 }
-.jumbotron h1,
-.jumbotron h2,
-.jumbotron h3,
-.jumbotron h4,
-.jumbotron h5,
-.jumbotron h6 {
-  font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
-  font-weight: 700;
-  color: #000;
+
+// Progress bars ==============================================================
+
+// Containers =================================================================
+
+.jumbotron {
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font-family-sans-serif;
+    font-weight: $headings-font-weight;
+    color: #000;
+  }
 }
-.panel-primary .panel-title,
-.panel-success .panel-title,
-.panel-warning .panel-title,
-.panel-danger .panel-title,
-.panel-info .panel-title {
-  color: #fff;
+
+.panel {
+
+  &-primary,
+  &-success,
+  &-warning,
+  &-danger,
+  &-info {
+    .panel-title {
+      color: #fff;
+    }
+  }
+
+
 }

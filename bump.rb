@@ -3,8 +3,6 @@
 require 'rubygems'
 require 'fileutils'
 require 'optparse'
-require 'autoprefixer-rails'
-require 'less'
 
 class Bumper
   THEMES = %w[
@@ -17,7 +15,11 @@ class Bumper
   Exception = Class.new(::Exception)
 
   class << self
-    attr_accessor :clean, :pull, :checkout, :bs_tag, :bw_tag, :version, :verbose, :root, :tmp, :bs, :bl, :bw
+    attr_accessor :clean, :pull, :checkout, :bs_tag, :bw_tag, :version, :verbose, :root, :tmp, :bs, :bw
+
+    #
+    # The bumper itself
+    #
 
     def bump!(args = ARGV.dup)
       initialize!(args)
@@ -36,6 +38,10 @@ class Bumper
     end
 
     private
+
+    #
+    # Worker functions
+    #
 
     def initialize!(args)
       @clean = true
@@ -73,11 +79,11 @@ class Bumper
       @root = File.expand_path('..', __FILE__)
       @tmp = "#{root}/tmp"
       @bs = "#{tmp}/bootstrap-sass"
-      @bl = "#{tmp}/bootstrap-less"
       @bw = "#{tmp}/bootswatch"
     end
 
     def update_sources!
+      # Clone or pull bootstrap
       if File.directory?(bs)
         cd bs do
           git :checkout, 'master'
@@ -88,16 +94,7 @@ class Bumper
           git :clone, 'git@github.com:twbs/bootstrap-sass.git', 'bootstrap-sass'
         end
       end
-      if File.directory?(bl)
-        cd bl do
-          git :checkout, 'master'
-          git :pull
-        end
-      else
-        cd tmp do
-          git :clone, 'git@github.com:twbs/bootstrap.git', 'bootstrap-less'
-        end
-      end
+      # Clone or pull bootswatch
       if File.directory?(bw)
         cd bw do
           git :checkout, 'gh-pages'
@@ -111,25 +108,27 @@ class Bumper
     end
 
     def checkout_tags!
+      # Checkout in bootstrap
       cd bs do
         git :checkout, bs_tag
       end
-      cd bl do
-        git :checkout, bs_tag
-      end
+      # Checkout in bootswatch
       cd bw do
         git :checkout, bw_tag
       end
     end
 
     def cleanup!
+      # Remove everything!
       rm "#{root}/assets" if clean
     end
 
     def do_fonts!
       Dir["#{bs}/assets/fonts/**/*"].each do |src|
+        # Skip non-existing files
         next unless File.file?(src)
 
+        # Copy the file
         dst = src.dup
         dst["#{bs}/assets/fonts/"] = "#{root}/assets/fonts/"
         cp(src, dst)
@@ -138,8 +137,10 @@ class Bumper
 
     def do_images!
       Dir["#{bs}/assets/images/**/*"].each do |src|
+        # Skip non-existing files
         next unless File.file?(src)
 
+        # Copy the file
         dst = src.dup
         dst["#{bs}/assets/images/"] = "#{root}/assets/images/"
         cp(src, dst)
@@ -148,26 +149,32 @@ class Bumper
 
     def do_javascripts!
       Dir["#{bs}/assets/javascripts/**/*"].each do |src|
+        # Skip non-existing files
         next unless File.file?(src)
 
+        # Copy the file
         dst = src.dup
         dst["#{bs}/assets/javascripts/"] = "#{root}/assets/javascripts/"
         cp(src, dst)
       end
 
+      # The sprockets file is the one we need as we only support asset pipeline
       cp("#{root}/assets/javascripts/bootstrap-sprockets.js", "#{root}/assets/javascripts/bootstrap.js")
       rm("#{root}/assets/javascripts/bootstrap-sprockets.js")
     end
 
     def do_stylesheets!
       Dir["#{bs}/assets/stylesheets/**/*"].each do |src|
+        # Skip non-existing files and helpers - we only support asset pipeline / sprockets
         next unless File.file?(src)
         next if /mincer|sprockets|compass/ =~ src
 
+        # Copy the file
         dst = src.dup
         dst["#{bs}/assets/stylesheets/"] = "#{root}/assets/stylesheets/"
         cp(src, dst)
 
+        # Replace helper functions with asset pipeline ones
         sed(dst, /twbs-font-path/, 'font-path')
         sed(dst, /twbs-image-path/, 'image-path')
       end
@@ -175,27 +182,20 @@ class Bumper
 
     def do_themes!
       THEMES.each do |theme|
+        # Skip removed themes
         next unless File.directory?("#{bw}/#{theme}")
 
+        # Create the sub-directory for the includes
         FileUtils.mkdir_p("#{root}/assets/stylesheets/#{theme}")
 
+        # Copy the variables file
         cp("#{bw}/#{theme}/_variables.scss", "#{root}/assets/stylesheets/#{theme}/_variables.scss")
+        # Fix the $icon-font-path
+        sed("#{root}/assets/stylesheets/#{theme}/_variables.scss", /^\$icon-font-path:\s*"(.*)";$/, '$icon-font-path:          "bootstrap/" !default;')
+        # Copy the bootswatch file
+        cp("#{bw}/#{theme}/_bootswatch.scss", "#{root}/assets/stylesheets/#{theme}/_bootswatch.scss")
 
-        sed("#{root}/assets/stylesheets/#{theme}/_variables.scss", /^\$icon-font-path:\s*"(.*)";$/, '$icon-font-path:          "bootstrap/";')
-
-        # If Rails moves to SASS 3.3+, we can simple do this
-        # cp("#{bw}/#{theme}/_bootswatch.scss", "#{root}/assets/stylesheets/#{theme}/_bootswatch.scss")
-
-        # This sucks big time
-        less = File.read("#{bl}/less/variables.less")
-        Dir["#{bl}/less/mixins/*.less"].each do |file|
-          less << File.read(file)
-        end
-        less << File.read("#{bw}/#{theme}/variables.less")
-        less << File.read("#{bw}/#{theme}/bootswatch.less")
-        css = Less::Parser.new.parse(less).to_css
-        File.write("#{root}/assets/stylesheets/#{theme}/_bootswatch.scss", css)
-
+        # Create the theme file
         contents = <<-EOT
 @import "#{theme}/variables";
 @import "bootstrap";
@@ -206,6 +206,7 @@ class Bumper
     end
 
     def write_version!
+      # Create the version file
       contents = <<-EOT
 module BootswatchSass
   VERSION = '#{version}'
@@ -214,6 +215,10 @@ end
 
       File.write("#{root}/lib/bootswatch-sass/version.rb", contents)
     end
+
+    #
+    # Helper functions
+    #
 
     def cd(dir)
       pwd = Dir.getwd
@@ -258,6 +263,10 @@ end
     end
   end
 end
+
+#
+# Bump, bump, bump!
+#
 
 begin
   Bumper.bump!

@@ -1,385 +1,481 @@
+// Lumen 3.3.1
+// Bootswatch
+// -----------------------------------------------------
+
 @import url("//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic");
-.navbar {
-  border-width: 0 1px 4px 1px;
+
+@mixin shadow($width: 4px){
+  border-width: 0 1px $width 1px;
 }
+
+// Navbar =====================================================================
+
+.navbar  {
+  @include shadow();
+}
+
+// Buttons ====================================================================
+
 .btn {
-  padding: 9px 12px 7px;
-  border-width: 0 1px 4px 1px;
+  padding: $padding-base-vertical+2 $padding-base-horizontal $padding-base-vertical;
+  @include shadow();
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
+
+  &:hover {
+    margin-top: 1px;
+    border-bottom-width: 3px;
+  }
+
+  &:active {
+    margin-top: 2px;
+    border-bottom-width: 2px;
+    @include box-shadow(none);
+  }
+
+  &-lg,
+  &-group-lg > .btn {
+    padding: $padding-large-vertical+2 $padding-large-horizontal $padding-large-vertical;
+    line-height: 15px;
+  }
+
+  &-sm,
+  &-group-sm > .btn {
+    padding: $padding-small-vertical+2 $padding-small-horizontal $padding-small-vertical;
+  }
+
+  &-xs,
+  &-group-xs > .btn {
+    padding: $padding-xs-vertical+2 $padding-xs-horizontal $padding-xs-vertical;
+  }
+
+  &-default:hover,
+  &-default:focus,
+  &-group.open .dropdown-toggle.btn-default {
+    background-color: $btn-default-bg;
+    border-color: $btn-default-border;
+  }
+
+  &-primary:hover,
+  &-primary:focus,
+  &-group.open .dropdown-toggle.btn-primary {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-border;
+  }
+
+  &-success:hover,
+  &-success:focus,
+  &-group.open .dropdown-toggle.btn-success {
+    background-color: $btn-success-bg;
+    border-color: $btn-success-border;
+  }
+
+  &-info:hover,
+  &-info:focus,
+  &-group.open .dropdown-toggle.btn-info {
+    background-color: $btn-info-bg;
+    border-color: $btn-info-border;
+  }
+
+  &-warning:hover,
+  &-warning:focus,
+  &-group.open .dropdown-toggle.btn-warning {
+    background-color: $btn-warning-bg;
+    border-color: $btn-warning-border;
+  }
+
+  &-danger:hover,
+  &-danger:focus,
+  &-group.open .dropdown-toggle.btn-danger {
+    background-color: $btn-danger-bg;
+    border-color: $btn-danger-border;
+  }
+
+  &-group.open .dropdown-toggle {
+    @include box-shadow(none);
+  }
 }
-.btn:hover {
-  margin-top: 1px;
-  border-bottom-width: 3px;
+
+.navbar-btn {
+  &:hover {
+    margin-top: 8px
+  }
+
+  &:active {
+    margin-top: 9px
+  }
+
+  &.btn-sm {
+    &:hover {
+      margin-top: 11px
+    }
+
+    &:active {
+      margin-top: 12px
+    }
+  }
+
+  &.btn-xs {
+    &:hover {
+      margin-top: 15px
+    }
+
+    &:active {
+      margin-top: 16px
+    }
+  }
 }
-.btn:active {
-  margin-top: 2px;
-  border-bottom-width: 2px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-.btn-lg,
-.btn-group-lg > .btn {
-  padding: 15px 16px 13px;
-  line-height: 15px;
-}
-.btn-sm,
-.btn-group-sm > .btn {
-  padding: 6px 10px 4px;
-}
-.btn-xs,
-.btn-group-xs > .btn {
-  padding: 3px 5px 1px;
-}
-.btn-default:hover,
-.btn-default:focus,
-.btn-group.open .dropdown-toggle.btn-default {
-  background-color: #eeeeee;
-  border-color: #e2e2e2;
-}
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-group.open .dropdown-toggle.btn-primary {
-  background-color: #158cba;
-  border-color: #127ba3;
-}
-.btn-success:hover,
-.btn-success:focus,
-.btn-group.open .dropdown-toggle.btn-success {
-  background-color: #28b62c;
-  border-color: #23a127;
-}
-.btn-info:hover,
-.btn-info:focus,
-.btn-group.open .dropdown-toggle.btn-info {
-  background-color: #75caeb;
-  border-color: #5fc1e8;
-}
-.btn-warning:hover,
-.btn-warning:focus,
-.btn-group.open .dropdown-toggle.btn-warning {
-  background-color: #ff851b;
-  border-color: #ff7701;
-}
-.btn-danger:hover,
-.btn-danger:focus,
-.btn-group.open .dropdown-toggle.btn-danger {
-  background-color: #ff4136;
-  border-color: #ff291c;
-}
-.btn-group.open .dropdown-toggle {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-.navbar-btn:hover {
-  margin-top: 8px;
-}
-.navbar-btn:active {
-  margin-top: 9px;
-}
-.navbar-btn.btn-sm:hover {
-  margin-top: 11px;
-}
-.navbar-btn.btn-sm:active {
-  margin-top: 12px;
-}
-.navbar-btn.btn-xs:hover {
-  margin-top: 15px;
-}
-.navbar-btn.btn-xs:active {
-  margin-top: 16px;
-}
+
+// Typography =================================================================
+
 .text-primary,
 .text-primary:hover {
-  color: #158cba;
+  color: $brand-primary;
 }
+
 .text-success,
 .text-success:hover {
-  color: #28b62c;
+  color: $brand-success;
 }
+
 .text-danger,
 .text-danger:hover {
-  color: #ff4136;
+  color: $brand-danger;
 }
+
 .text-warning,
 .text-warning:hover {
-  color: #ff851b;
+  color: $brand-warning;
 }
+
 .text-info,
 .text-info:hover {
-  color: #75caeb;
+  color: $brand-info;
 }
-table a:not(.btn),
-.table a:not(.btn) {
-  text-decoration: underline;
+
+// Tables =====================================================================
+
+table,
+.table {
+
+  a:not(.btn) {
+    text-decoration: underline;
+  }
+
+  .dropdown-menu a {
+    text-decoration: none;
+  }
+
+  .success,
+  .warning,
+  .danger,
+  .info {
+    color: #fff;
+
+    a:not(.btn) {
+      color: #fff;
+    }
+  }
+
+  > thead > tr > th,
+  > tbody > tr > th,
+  > tfoot > tr > th,
+  > thead > tr > td,
+  > tbody > tr > td,
+  > tfoot > tr > td {
+    border-color: transparent;
+  }
 }
-table .dropdown-menu a,
-.table .dropdown-menu a {
-  text-decoration: none;
-}
-table .success,
-.table .success,
-table .warning,
-.table .warning,
-table .danger,
-.table .danger,
-table .info,
-.table .info {
-  color: #fff;
-}
-table .success a:not(.btn),
-.table .success a:not(.btn),
-table .warning a:not(.btn),
-.table .warning a:not(.btn),
-table .danger a:not(.btn),
-.table .danger a:not(.btn),
-table .info a:not(.btn),
-.table .info a:not(.btn) {
-  color: #fff;
-}
-table > thead > tr > th,
-.table > thead > tr > th,
-table > tbody > tr > th,
-.table > tbody > tr > th,
-table > tfoot > tr > th,
-.table > tfoot > tr > th,
-table > thead > tr > td,
-.table > thead > tr > td,
-table > tbody > tr > td,
-.table > tbody > tr > td,
-table > tfoot > tr > td,
-.table > tfoot > tr > td {
-  border-color: transparent;
-}
+
+// Forms ======================================================================
+
 .form-control {
-  -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+  @include box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.075));
 }
+
 label {
   font-weight: normal;
 }
-.has-warning .help-block,
-.has-warning .control-label,
-.has-warning .form-control-feedback {
-  color: #ff851b;
+
+.has-warning {
+  .help-block,
+  .control-label,
+  .form-control-feedback {
+    color: $brand-warning;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border: 1px solid $brand-warning;
+    @include box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.075));
+  }
+
+  .input-group-addon {
+    border: 1px solid $brand-warning;
+  }
 }
-.has-warning .form-control,
-.has-warning .form-control:focus {
-  border: 1px solid #ff851b;
-  -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+
+.has-error {
+  .help-block,
+  .control-label,
+  .form-control-feedback {
+    color: $brand-danger;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border: 1px solid $brand-danger;
+    @include box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.075));
+  }
+
+  .input-group-addon {
+    border: 1px solid $brand-danger;
+  }
 }
-.has-warning .input-group-addon {
-  border: 1px solid #ff851b;
+
+.has-success {
+  .help-block,
+  .control-label,
+  .form-control-feedback {
+    color: $brand-success;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border: 1px solid $brand-success;
+    @include box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.075));
+  }
+
+  .input-group-addon {
+    border: 1px solid $brand-success;
+  }
 }
-.has-error .help-block,
-.has-error .control-label,
-.has-error .form-control-feedback {
-  color: #ff4136;
+
+// Navs =======================================================================
+
+.nav {
+  .open > a,
+  .open > a:hover,
+  .open > a:focus {
+    border-color: transparent;
+  }
 }
-.has-error .form-control,
-.has-error .form-control:focus {
-  border: 1px solid #ff4136;
-  -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+
+.nav-tabs {
+
+  > li > a {
+    margin-top: 6px;
+    border-color: $navbar-default-border;
+    color: $gray-dark;
+    @include transition(all 0.2s ease-in-out);
+  }
+
+  > li > a:hover,
+  > li > a:focus,
+  > li.active > a,
+  > li.active > a:hover,
+  > li.active > a:focus,
+  .open > a,
+  .open > a:hover,
+  .open > a:focus {
+    padding-top: $padding-large-vertical + 3px;
+    padding-bottom: $padding-large-vertical + 3px;
+    margin-top: 0;
+  }
+
+  .open > a,
+  .open > a:hover,
+  .open > a:focus {
+    border-color: $navbar-default-border;
+  }
+
+  > li.disabled > a:hover,
+  > li.disabled > a:focus {
+    padding-top: $padding-large-vertical;
+    padding-bottom: $padding-large-vertical;
+    margin-top: 6px;
+  }
 }
-.has-error .input-group-addon {
-  border: 1px solid #ff4136;
-}
-.has-success .help-block,
-.has-success .control-label,
-.has-success .form-control-feedback {
-  color: #28b62c;
-}
-.has-success .form-control,
-.has-success .form-control:focus {
-  border: 1px solid #28b62c;
-  -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
-}
-.has-success .input-group-addon {
-  border: 1px solid #28b62c;
-}
-.nav .open > a,
-.nav .open > a:hover,
-.nav .open > a:focus {
-  border-color: transparent;
-}
-.nav-tabs > li > a {
-  margin-top: 6px;
-  border-color: #e7e7e7;
-  color: #333333;
-  -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-.nav-tabs > li > a:hover,
-.nav-tabs > li > a:focus,
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus,
-.nav-tabs .open > a,
-.nav-tabs .open > a:hover,
-.nav-tabs .open > a:focus {
-  padding-top: 16px;
-  padding-bottom: 16px;
-  margin-top: 0;
-}
-.nav-tabs .open > a,
-.nav-tabs .open > a:hover,
-.nav-tabs .open > a:focus {
-  border-color: #e7e7e7;
-}
-.nav-tabs > li.disabled > a:hover,
-.nav-tabs > li.disabled > a:focus {
-  padding-top: 13px;
-  padding-bottom: 13px;
-  margin-top: 6px;
-}
+
 .dropdown-menu {
   margin-top: 0;
-  border-width: 0 1px 4px 1px;
+  @include shadow();
   border-top-width: 1px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  @include box-shadow(none);
 }
+
 .breadcrumb {
-  border-color: #ededed;
+  border-color: darken($breadcrumb-bg, 5%);
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  @include shadow();
 }
-.pagination > li > a,
-.pager > li > a,
-.pagination > li > span,
-.pager > li > span {
-  position: relative;
-  top: 0;
-  border-width: 0 1px 4px 1px;
-  color: #555555;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
+
+.pagination,
+.pager {
+
+  > li > a,
+  > li > span {
+    position: relative;
+    top: 0;
+    @include shadow();
+    color: $pagination-color;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &:hover {
+      top: 1px;
+      border-bottom-width: 3px;
+    }
+
+    &:active {
+      top: 2px;
+      border-bottom-width: 2px;
+    }
+  }
+
+  > .disabled > a,
+  > .disabled > span {
+
+    &:hover {
+      top: 0;
+      @include shadow();
+    }
+
+    &:active {
+      top: 0;
+      @include shadow();
+    }
+  }
 }
-.pagination > li > a:hover,
-.pager > li > a:hover,
-.pagination > li > span:hover,
-.pager > li > span:hover {
-  top: 1px;
-  border-bottom-width: 3px;
+
+.pager {
+
+  > li > a,
+  > li > span,
+  > .disabled > a,
+  > .disabled > span {
+
+    &,
+    &:hover,
+    &:active {
+      border-left-width: 2px;
+      border-right-width: 2px;
+    }
+  }
 }
-.pagination > li > a:active,
-.pager > li > a:active,
-.pagination > li > span:active,
-.pager > li > span:active {
-  top: 2px;
-  border-bottom-width: 2px;
-}
-.pagination > .disabled > a:hover,
-.pager > .disabled > a:hover,
-.pagination > .disabled > span:hover,
-.pager > .disabled > span:hover {
-  top: 0;
-  border-width: 0 1px 4px 1px;
-}
-.pagination > .disabled > a:active,
-.pager > .disabled > a:active,
-.pagination > .disabled > span:active,
-.pager > .disabled > span:active {
-  top: 0;
-  border-width: 0 1px 4px 1px;
-}
-.pager > li > a,
-.pager > li > span,
-.pager > .disabled > a,
-.pager > .disabled > span,
-.pager > li > a:hover,
-.pager > li > span:hover,
-.pager > .disabled > a:hover,
-.pager > .disabled > span:hover,
-.pager > li > a:active,
-.pager > li > span:active,
-.pager > .disabled > a:active,
-.pager > .disabled > span:active {
-  border-left-width: 2px;
-  border-right-width: 2px;
-}
+
+// Indicators =================================================================
+
 .close {
   color: #fff;
   text-decoration: none;
   opacity: 0.4;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    opacity: 1;
+  }
 }
-.close:hover,
-.close:focus {
-  color: #fff;
-  opacity: 1;
-}
+
 .alert {
-  border-width: 0 1px 4px 1px;
+  @include shadow();
+
+  .alert-link {
+    font-weight: normal;
+    color: #fff;
+    text-decoration: underline;
+  }
 }
-.alert .alert-link {
-  font-weight: normal;
-  color: #fff;
-  text-decoration: underline;
-}
+
 .label {
   font-weight: normal;
 }
+
+// Progress bars ==============================================================
+
 .progress {
-  border: 1px solid #e7e7e7;
-  -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid $navbar-default-border;
+  @include box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.1));
+
+  &-bar {
+    @include box-shadow(inset 0 -4px 0 rgba(0, 0, 0, 0.15));
+  }
 }
-.progress-bar {
-  -webkit-box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.15);
-}
+
+// Containers =================================================================
+
 .well {
-  border: 1px solid #e7e7e7;
-  -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid $navbar-default-border;
+  @include box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.05));
 }
-a.list-group-item.active,
-a.list-group-item.active:hover,
-a.list-group-item.active:focus {
-  border-color: #dddddd;
+
+a.list-group-item {
+
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    border-color: $list-group-border;
+  }
+
+  &-success {
+    &.active {
+      background-color: $state-success-bg;
+    }
+
+    &.active:hover,
+    &.active:focus {
+      background-color: darken($state-success-bg, 5%);
+    }
+  }
+
+  &-warning {
+    &.active {
+      background-color: $state-warning-bg;
+    }
+    
+    &.active:hover,
+    &.active:focus {
+      background-color: darken($state-warning-bg, 5%);
+    }
+  }
+
+  &-danger {
+    &.active {
+      background-color: $state-danger-bg;
+    }
+    
+    &.active:hover,
+    &.active:focus {
+      background-color: darken($state-danger-bg, 5%);
+    }
+  }
 }
-a.list-group-item-success.active {
-  background-color: #28b62c;
-}
-a.list-group-item-success.active:hover,
-a.list-group-item-success.active:focus {
-  background-color: #23a127;
-}
-a.list-group-item-warning.active {
-  background-color: #ff851b;
-}
-a.list-group-item-warning.active:hover,
-a.list-group-item-warning.active:focus {
-  background-color: #ff7701;
-}
-a.list-group-item-danger.active {
-  background-color: #ff4136;
-}
-a.list-group-item-danger.active:hover,
-a.list-group-item-danger.active:focus {
-  background-color: #ff291c;
-}
+
 .jumbotron {
-  border: 1px solid #e7e7e7;
-  -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid $navbar-default-border;
+  @include box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.05));
 }
+
 .panel {
-  border: 1px solid #e7e7e7;
-  border-width: 0 1px 4px 1px;
+  border: 1px solid $navbar-default-border;
+  @include shadow();
+
+  &-default {
+    .close {
+      color: $text-color;
+    }
+  }
 }
-.panel-default .close {
-  color: #555555;
+
+.modal {
+  .close {
+    color: $text-color;
+  }
 }
-.modal .close {
-  color: #555555;
-}
+
 .popover {
-  color: #555555;
+  color: $text-color;
 }

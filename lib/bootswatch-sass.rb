@@ -2,12 +2,29 @@ require 'bootswatch-sass/version'
 
 module BootswatchSass
   class << self
+    # Inspired by bootstrap-sass & kaminari
+
     def load!
+      configure_sass!
+      register_rails_engine! if rails?
+    end
+
+    def configure_sass!
       ::Sass.load_paths << stylesheets_path
       ::Sass::Script::Number.precision = [10, ::Sass::Script::Number.precision].max
-
-      require 'bootswatch-sass/engine' if defined?(::Rails)
     end
+
+    def register_rails_engine!
+      require 'bootswatch-sass/engine' if rails?
+    end
+
+    # Environment
+
+    def rails?
+      defined?(::Rails)
+    end
+
+    # Paths
 
     def gem_path
       @gem_path ||= File.expand_path('..', File.dirname(__FILE__))
