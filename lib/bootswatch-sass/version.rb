@@ -1,3 +1,3 @@
 module BootswatchSass
-  VERSION = '3.3.1.4'
+  VERSION = '3.3.2'
 end

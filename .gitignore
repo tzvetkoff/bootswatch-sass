@@ -18,3 +18,11 @@ mkmf.log
 .ruby-version
 .ruby-gemset
 .ruby-env
+
+/test/dummy/Gemfile.lock
+/test/dummy/log
+/test/dummy/tmp
+#/test/dummy/
+#/test/dummy/
+#/test/dummy/
+#/test/dummy/

@@ -161,6 +161,7 @@ class Bumper
       # The sprockets file is the one we need as we only support asset pipeline
       cp("#{root}/assets/javascripts/bootstrap-sprockets.js", "#{root}/assets/javascripts/bootstrap.js")
       rm("#{root}/assets/javascripts/bootstrap-sprockets.js")
+      rm("#{root}/assets/javascripts/bootstrap.min.js")
     end
 
     def do_stylesheets!
@@ -177,6 +178,21 @@ class Bumper
         # Replace helper functions with asset pipeline ones
         sed(dst, /twbs-font-path/, 'font-path')
         sed(dst, /twbs-image-path/, 'image-path')
+
+        font_face_def = <<-'FONT_FACE'
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url(font-path('#{$icon-font-path}#{$icon-font-name}.eot'));
+  src: url(font-path('#{$icon-font-path}#{$icon-font-name}.eot?#iefix')) format('embedded-opentype'),
+       url(font-path('#{$icon-font-path}#{$icon-font-name}.woff2')) format('woff2'),
+       url(font-path('#{$icon-font-path}#{$icon-font-name}.woff')) format('woff'),
+       url(font-path('#{$icon-font-path}#{$icon-font-name}.ttf')) format('truetype'),
+       url(font-path('#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}')) format('svg');
+}
+
+        FONT_FACE
+        sed(dst, /@font-face\s*\{.*?\n\}\n/m, font_face_def)
+        sed(dst, /^\$icon-font-path:.*!default;$/, '$icon-font-path:          "bootstrap/" !default;')
       end
     end
 
