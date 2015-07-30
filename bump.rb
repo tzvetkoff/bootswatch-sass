@@ -179,19 +179,25 @@ class Bumper
         sed(dst, /twbs-font-path/, 'font-path')
         sed(dst, /twbs-image-path/, 'image-path')
 
-        font_face_def = <<-'FONT_FACE'
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url(font-path('#{$icon-font-path}#{$icon-font-name}.eot'));
-  src: url(font-path('#{$icon-font-path}#{$icon-font-name}.eot?#iefix')) format('embedded-opentype'),
-       url(font-path('#{$icon-font-path}#{$icon-font-name}.woff2')) format('woff2'),
-       url(font-path('#{$icon-font-path}#{$icon-font-name}.woff')) format('woff'),
-       url(font-path('#{$icon-font-path}#{$icon-font-name}.ttf')) format('truetype'),
-       url(font-path('#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}')) format('svg');
+        if dst.end_with?('_glyphicons.scss')
+          font_face_def = <<-'FONT_FACE'
+@at-root {
+  // Import the fonts
+  @font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url(font-path('#{$icon-font-path}#{$icon-font-name}.eot'));
+    src: url(font-path('#{$icon-font-path}#{$icon-font-name}.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('#{$icon-font-path}#{$icon-font-name}.woff2')) format('woff2'),
+         url(font-path('#{$icon-font-path}#{$icon-font-name}.woff')) format('woff'),
+         url(font-path('#{$icon-font-path}#{$icon-font-name}.ttf')) format('truetype'),
+         url(font-path('#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}')) format('svg');
+  }
 }
 
-        FONT_FACE
-        sed(dst, /@font-face\s*\{.*?\n\}\n/m, font_face_def)
+          FONT_FACE
+          sed(dst, /@at-root\s*\{.*?@font-face\s*\{.*?\n\s*\}\n\}\n/m, font_face_def)
+        end
+
         sed(dst, /^\$icon-font-path:.*!default;$/, '$icon-font-path:          "bootstrap/" !default;')
       end
     end
@@ -207,7 +213,7 @@ class Bumper
         # Copy the variables file
         cp("#{bw}/#{theme}/_variables.scss", "#{root}/assets/stylesheets/#{theme}/_variables.scss")
         # Fix the $icon-font-path
-        sed("#{root}/assets/stylesheets/#{theme}/_variables.scss", /^\$icon-font-path:\s*"(.*)";$/, '$icon-font-path:          "bootstrap/" !default;')
+        sed("#{root}/assets/stylesheets/#{theme}/_variables.scss", /^\$icon-font-path:.*!default;$/, '$icon-font-path:          "bootstrap/" !default;')
         # Copy the bootswatch file
         cp("#{bw}/#{theme}/_bootswatch.scss", "#{root}/assets/stylesheets/#{theme}/_bootswatch.scss")
 
