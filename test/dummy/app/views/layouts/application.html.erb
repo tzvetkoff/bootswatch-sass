@@ -4,8 +4,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Dummy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <%= stylesheet_link_tag @stylesheet || 'application', :media => 'all', :data => { :turbolinks_track => true } %>
-  <%= javascript_include_tag 'application', :data => { :turbolinks_track => true } %>
+  <%= stylesheet_link_tag @stylesheet || 'application', :media => 'all', :data => { :turbolinks_track => :reload } %>
+  <%= javascript_include_tag 'application', :data => { :turbolinks_track => :reload } %>
   <%= csrf_meta_tags %>
 </head>
 <body>
